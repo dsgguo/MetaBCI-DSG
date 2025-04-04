@@ -242,7 +242,7 @@ class Bayes(BaseEstimator, TransformerMixin):
             kde0, kde1, prob, estimator = self._get_model(duration)
 
             rhos = estimator.transform(data)
-            label = estimator.predict(data)
+            label = estimator.classes_[np.argmax(rhos, axis=1)]
             rho_i = {i: rhos[i, :] for i, _ in enumerate(rhos)}
             dm_i = np.array([rho_i[i][np.argmax(rho_i[i])] for i in rho_i])
             p_H0 = kde0(dm_i)

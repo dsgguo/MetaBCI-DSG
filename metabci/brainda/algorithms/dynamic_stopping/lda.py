@@ -187,7 +187,7 @@ class LDA(BaseEstimator, TransformerMixin):
             lda_model, estimator = self._get_model(duration)
 
             rhos = estimator.transform(data)
-            label = estimator.predict(data)
+            label = estimator.classes_[np.argmax(rhos, axis=1)]
             rho_i = {i: rhos[i, :] for i, _ in enumerate(rhos)}
             dm_i = np.array([[1, np.partition(rho_i[i], -2)[-2] /
                             np.partition(rho_i[i], -1)[-1]] for i in rho_i])

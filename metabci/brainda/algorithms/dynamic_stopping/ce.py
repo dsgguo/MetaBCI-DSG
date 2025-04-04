@@ -156,7 +156,7 @@ class CE(BaseEstimator, TransformerMixin):
         if duration in self.model_dict:
             estimator = self._get_model(duration)
             rhos = estimator.transform(data)
-            label = estimator.predict(data)
+            label = estimator.classes_[np.argmax(rhos, axis=1)]
             rho_i = {i: rhos[i, :] for i, _ in enumerate(rhos)}
             cost_h0, cost_hq = self._cross_entropy(rho_i)
 
